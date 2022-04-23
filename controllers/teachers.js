@@ -11,10 +11,10 @@ const Student = require('../models/students');
     }
 */
 exports.getTeachers = async (req, res) => {
-    try{
+    try {
         const teachers = await Teacher.find(req.body);
         res.status(200).json(teachers);
-    }catch(err){
+    } catch (err) {
         res.send("[ERROR] " + err);
     }
 };
@@ -35,10 +35,10 @@ exports.createTeacher = async (req, res) => {
         email: req.body.email,
         subject: req.body.subject
     });
-    try{
+    try {
         const entry = await newTeacher.save();
         res.status(201).json(entry);
-    }catch(err){
+    } catch (err) {
         res.send("[ERROR] " + err);
     }
 };
@@ -48,10 +48,12 @@ exports.createTeacher = async (req, res) => {
     GET request on "localhost:3000/teachers/6264031a43dd13442f7878fd"
 */
 exports.getAssignedStudentsToTeacher = async (req, res) => {
-    try{
-        const students = await Student.find({assignedTeacher: req.params.teacherId});
-        res.status(200).json(students);
-    }catch(err){
+    try {
+        const teacherId = req.params.teacherId;
+        const students = await Student.find({ assignedTeacher: teacherId });
+        const teacher = await Teacher.findById(teacherId);
+        res.status(200).json({ "name": teacher.name, "assignedStudents": students});
+    } catch (err) {
         res.send("[ERROR] " + err);
     }
 };

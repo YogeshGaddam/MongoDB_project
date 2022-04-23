@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Prasad",
+        "email": "Prasad@email.com",
+        "class": 9,
+        "section": "A"
+    },
+    {
+        "name": "Raju",
+        "email": "Raju@email.com",
+        "class": 8,
+        "section": "B"
+    },
+    {
+        "name": "Ramesh",
+        "email": "Ramesh@email.com",
+        "class": 8,
+        "section": "A"
+    },
+    {
+        "name": "Suresh",
+        "email": "Suresh@email.com",
+        "class": 9,
+        "section": "C"
+    },
+    {
+        "name": "Robin",
+        "email": "Robin@email.com",
+        "class": 8,
+        "section": "A"
+    },
+    {
+        "name": "Alice",
+        "email": "Alice@email.com",
+        "class": 9,
+        "section": "C"
+    },
+    {
+        "name": "Bob",
+        "email": "Bob@email.com",
+        "class": 8,
+        "section": "C"
+    },
+    {
+        "name": "Jonas",
+        "email": "Jonas@email.com",
+        "class": 9,
+        "section": "B"
+    },
+    {
+        "name": "Desmond",
+        "email": "Desmond@email.com",
+        "class": 9,
+        "section": "A"
+    },
+    {
+        "name": "Kiran",
+        "email": "Kiran@email.com",
+        "class": 8,
+        "section": "B"
+    }
+]

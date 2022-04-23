@@ -2,6 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const teacherRouter = require('./routes/teachers');
 const studentRouter = require('./routes/students');
+const fs = require('fs');
+const studentData = './data/students.json';
+const teacherData = './data/teachers.json';
+const Student = require('./models/students');
+const Teacher = require('./models/teachers');
 
 //database hosted on Atlas
 const url = 'mongodb+srv://admin:admin@cluster0.w5ccy.mongodb.net/TeacherStudentDB?retryWrites=true&w=majority';
@@ -15,6 +20,41 @@ connection.on('open', (err) => {
     }
     console.log('Database connection successful!!');
 });
+
+function Read_JSON(fileName){
+    return JSON.parse(fs.readFileSync(fileName));
+}
+
+async function assignTeacherToStudent(studentId, teacherId){
+    await Student.updateOne({_id: studentId}, {"assignedTeacher" : teacherId});
+}
+
+async function assignStudents(){
+    const students = await Student.find();
+    var StudentIds = Array();
+    for(let student of students){
+        StudentIds.push(student._id);
+    }
+    const teachers = await Teacher.find();
+    var TeacherIds = Array();
+    for(let teacher of teachers){
+        TeacherIds.push(teacher._id);
+    }
+    for(let studentId of StudentIds){
+        assignTeacherToStudent(studentId, TeacherIds[Math.floor(Math.random()*TeacherIds.length)]);
+    }
+}
+
+function InsertIntoDB(){
+    Teacher.collection.drop();
+    Student.collection.drop();
+    var data = Read_JSON(teacherData);
+    Teacher.collection.insertMany(data);
+    data = Read_JSON(studentData);
+    Student.collection.insertMany(data);
+    assignStudents();
+    console.log("Initial Insertion Complete");
+}
 
 const app = express();
 //using middlewares
@@ -31,6 +71,13 @@ app.listen(port, (err) => {
     }
     console.log(`connection live on port ${port}!!`);
 });
+
+// Insert Data from local json file into the database
+// Run the below command only once by removing the comment
+
+//InsertIntoDB();
+
+
 
 // Student Data hosted on the server
 /*
