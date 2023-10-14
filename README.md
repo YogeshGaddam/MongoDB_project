@@ -1,5 +1,4 @@
 # MongoDB_project
-Intern Assessment 
 
 Setting up the environment
 1) clone the repository
